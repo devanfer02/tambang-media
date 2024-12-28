@@ -14,7 +14,7 @@
     </head>
     <body class="tw-h-screen tw-bg-gray-800">
       @include('components.navbar')
-      <main class="tw-mt-10 tw-mb-20">
+      <main class="tw-mt-10 tw-mb-20 tw-min-h-screen">
         {{ $slot }}
       </main>
       @include('components.footer')

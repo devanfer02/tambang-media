@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\Vehicle;
 use Illuminate\Http\Request;
 use App\Http\Services\ReservationService;
+use App\Models\Approval;
 use App\Models\Driver;
 use App\Models\Mine;
 use Maatwebsite\Excel\Facades\Excel;
@@ -81,7 +82,9 @@ class ReservationController extends Controller
     {
         $reservation = $this->reservationSvc->fetchOne($reservation);
 
-        return view('pages.reservations.show', compact('reservation'));
+        $approvalReservation = Approval::where('approver_id', '=', auth()->user()->user_id)->where('reservation_id','=',$reservation->reservation_id)->first();
+
+        return view('pages.reservations.show', compact('reservation', 'approvalReservation'));
     }
 
     public function pending(Reservation $reservation)

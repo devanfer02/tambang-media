@@ -28,17 +28,18 @@
       </div>
     </div>
 
+
     <script>
+
       const usageMonthCtx = document.getElementById('vehicleUsageMonth').getContext('2d');
       const topKCtx = document.getElementById('topKVehicleUsage').getContext('2d');
       const usageTypeCtx = document.getElementById('typeVehicleUsage').getContext('2d');
 
-      // Chart Configuration for Grafana Look
+      // Chart color config
       const grafanaColors = {
         backgroundColor: 'rgba(47, 54, 64, 0.8)',
         borderColor: 'rgba(255, 206, 86, 1)'
       };
-
 
 
       // Line Chart - Vehicle Usage by Month
@@ -98,31 +99,37 @@
         }
       });
 
-      // Bar Chart - Vehicle Usage by Type
-      new Chart(usageTypeCtx, {
-        type: 'bar',
-        data: {
-          labels: @json($data['usageType']['labels']),
-          datasets: [{
-            label: 'Jumlah Penggunaan',
-            data: @json($data['usageType']['data']),
-            backgroundColor: '#FF7043',
-            borderColor: '#E64A19',
-            borderWidth: 2
-          }]
-        },
-        options: {
-          responsive: true,
-          maintainAspectRation: false,
-          plugins: {
-            legend: { display: false }
+      if(@json($data['usageType']).length !== 0) {
+        // Bar Chart - Vehicle Usage by Type
+        new Chart(usageTypeCtx, {
+          type: 'bar',
+          data: {
+            labels: @json($data['usageType']['labels']),
+            datasets: [{
+              label: 'Jumlah Penggunaan',
+              data: @json($data['usageType']['data']),
+              backgroundColor: '#FF7043',
+              borderColor: '#E64A19',
+              borderWidth: 2
+            }]
           },
-          scales: {
-            x: { ticks: { color: 'white' } },
-            y: { ticks: { color: 'white' }, beginAtZero: true }
+          options: {
+            responsive: true,
+            maintainAspectRation: false,
+            plugins: {
+              legend: { display: false }
+            },
+            scales: {
+              x: { ticks: { color: 'white' } },
+              y: { ticks: { color: 'white' }, beginAtZero: true }
+            }
           }
-        }
-      });
+        });
+
+      }
+
     </script>
+
+
   </div>
 </x-app-layout>

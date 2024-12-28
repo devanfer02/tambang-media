@@ -33,7 +33,7 @@ class VehicleServiceController extends Controller
      */
     public function create()
     {
-        $vehicles = Vehicle::all(); // Fetch all available vehicles
+        $vehicles = Vehicle::orderBy('vehicle_name', 'asc')->get(); // Fetch all available vehicles
         return view('pages.services.create', compact('vehicles'));
     }
 

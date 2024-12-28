@@ -27,8 +27,8 @@
       <div class="tw-mb-4">
         <label for="vehicle_type" class="tw-block tw-mb-2 lg:tw-text-lg tw-text-gray-300">Tipe Kendaraan</label>
         <select name="vehicle_type" id="vehicle_type" class="tw-w-full tw-py-2 tw-px-4 tw-border tw-border-gray-600 tw-rounded-md tw-bg-gray-700 tw-text-gray-200 focus:tw-border-blue-500 focus:tw-outline-none hover:tw-border-gray-400" required>
-          <option value="{{ $vehicle->vehicle_type }}" selected class="tw-text-gray-400">{{ $vehicle->vehicle_type }}</option>
-          <option value="Person">Person</option>
+          <option hidden value="{{ $vehicle->vehicle_type }}" selected class="tw-text-gray-400">{{ $vehicle->vehicle_type }}</option>
+          <option value="Passenger">Passenger</option>
           <option value="Cargo">Cargo</option>
         </select>
       </div>
@@ -37,7 +37,7 @@
       <div class="tw-mb-4">
         <label for="vehicle_owner" class="tw-block tw-mb-2 lg:tw-text-lg tw-text-gray-300">Pemilik Kendaraan</label>
         <select name="vehicle_owner" id="vehicle_owner" class="tw-w-full tw-py-2 tw-px-4 tw-border tw-border-gray-600 tw-rounded-md tw-bg-gray-700 tw-text-gray-200 focus:tw-border-blue-500 focus:tw-outline-none hover:tw-border-gray-400" required>
-          <option value="{{ $vehicle->vehicle_owner }}" selected class="tw-text-gray-400">{{ $vehicle->vehicle_owner }}</option>
+          <option hidden value="{{ $vehicle->vehicle_owner }}" selected class="tw-text-gray-400">{{ $vehicle->vehicle_owner }}</option>
           <option value="Company">Company</option>
           <option value="Rental">Rental</option>
         </select>

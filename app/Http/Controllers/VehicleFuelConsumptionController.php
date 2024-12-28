@@ -24,7 +24,7 @@ class VehicleFuelConsumptionController extends Controller
 
     public function create()
     {
-        $vehicles = Vehicle::all();
+        $vehicles = Vehicle::orderBy('vehicle_name')->get();
         return view('pages.fuel_consumptions.create', compact('vehicles'));
     }
 

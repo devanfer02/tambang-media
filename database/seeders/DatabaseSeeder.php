@@ -2,15 +2,11 @@
 
 namespace Database\Seeders;
 
-use App\Models\Approval;
 use App\Models\Driver;
 use App\Models\Mine;
-use App\Models\Reservation;
 use App\Models\User;
 use App\Models\Role;
 use App\Models\Vehicle;
-use App\Models\VehicleFuelConsumption;
-use App\Models\VehicleService;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use Ramsey\Uuid\Uuid;
@@ -41,19 +37,36 @@ class DatabaseSeeder extends Seeder
             [
                 'user_id' => Uuid::uuid7(),
                 'role_id' => $adminRoleId,
-                'fullname' => 'Admin 1',
-                'email' => 'admin@gmail.com',
+                'fullname' => 'Evan Lingga',
+                'email' => 'evanlingga@gmail.com',
                 'position' => 'Admin Sistem',
-                'password' => Hash::make('pass123')
+                'password' => Hash::make('password')
             ],
             [
                 'user_id' => Uuid::uuid7(),
                 'role_id' => $approverRoleId,
-                'fullname' => 'Manager 1',
-                'email' => 'manager@gmail.com',
+                'fullname' => 'Tade Gina',
+                'email' => 'tadegina@gmail.com',
                 'position' => 'Manager',
-                'password' => Hash::make('pass123')
+                'password' => Hash::make('password')
+            ],
+            [
+                'user_id' => Uuid::uuid7(),
+                'role_id' => $approverRoleId,
+                'fullname' => 'Farrel Deva',
+                'email' => 'farreldeva@gmail.com',
+                'position' => 'Manager',
+                'password' => Hash::make('password')
+            ],
+            [
+                'user_id' => Uuid::uuid7(),
+                'role_id' => $approverRoleId,
+                'fullname' => 'Hikmam Ali',
+                'email' => 'hikmamali@gmail.com',
+                'position' => 'Manager',
+                'password' => Hash::make('password')
             ]
+
         ]);
 
         Mine::insert([
@@ -88,13 +101,5 @@ class DatabaseSeeder extends Seeder
         User::factory(25)->role('Approver')->create();
 
         Vehicle::factory(50)->create();
-
-        Reservation::factory(200)->create();
-
-        VehicleService::factory(10)->create();
-
-        Approval::factory(400)->create();
-
-        VehicleFuelConsumption::factory(50)->create();
     }
 }

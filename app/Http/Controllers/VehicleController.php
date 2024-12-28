@@ -23,7 +23,7 @@ class VehicleController extends Controller
      */
     public function index()
     {
-        $vehicles = Vehicle::paginate(10);
+        $vehicles = Vehicle::orderBy('created_at', 'desc')->paginate(10);
 
         return view('pages.vehicles.index', compact('vehicles'));
     }

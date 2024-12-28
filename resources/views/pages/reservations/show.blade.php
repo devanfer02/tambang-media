@@ -129,12 +129,12 @@
                   <select name="status" id="status" class="tw-w-full tw-rounded-md tw-bg-gray-700 tw-border-gray-600 tw-text-white" required>
                     <option value="Approved">Approved</option>
                     <option value="Rejected">Rejected</option>
-                    <option value="Pending">Pending</option>
                   </select>
                 </div>
                 <div class="tw-mb-4">
                   <label for="comments" class="tw-block tw-text-lg">Komen</label>
-                  <textarea name="comments" id="comments" rows="4" class="tw-w-full tw-resize-none tw-rounded-md tw-bg-gray-700 tw-border-gray-600 tw-text-white"></textarea>
+                  <textarea name="comments" id="comments" rows="4" class="tw-w-full tw-resize-none tw-rounded-md tw-bg-gray-700 tw-border-gray-600 tw-text-white">{{ $approvalReservation->comments }}
+                  </textarea>
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>

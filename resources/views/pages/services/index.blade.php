@@ -34,6 +34,11 @@
             <td class="tw-py-3 tw-px-4 tw-text-gray-300">{{ $service->service_description }}</td>
             <td class="tw-py-3 tw-px-4 tw-flex tw-justify-center tw-gap-2">
               <a href="{{ route('services.pages.edit', $service) }}" class="tw-bg-orange-500 tw-text-white tw-px-3 tw-py-1 tw-rounded hover:tw-bg-orange-600">Edit</a>
+              <form action="{{ route('services.request.destroy', $service->service_id) }}" method="POST">
+                @csrf
+                @method('DELETE')
+                <button class="tw-bg-red-500 tw-text-white tw-px-3 tw-py-1 tw-rounded hover:tw-bg-red-600">Delete</button>
+              </form>
             </td>
           </tr>
           @endforeach

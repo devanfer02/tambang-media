@@ -16,14 +16,13 @@ class StatisticsService
 
         $vehicleUsage = [];
 
-        foreach($months as $month)
-        {
+        foreach ($months as $month) {
             $splitted = explode("-", $month['date']);
 
-            $vehicleUsage[$month['month']] = Amp\async(function() use($splitted) {
+            $vehicleUsage[$month['month']] = Amp\async(function () use ($splitted) {
                 $reservations = Reservation::whereYear('created_at', $splitted[0])
-                ->whereMonth('created_at', $splitted[1])
-                ->get();
+                    ->whereMonth('created_at', $splitted[1])
+                    ->get();
 
                 return $reservations->count();
             });
@@ -31,8 +30,7 @@ class StatisticsService
 
         $usageDataMonth = [];
 
-        foreach($months as $month)
-        {
+        foreach ($months as $month) {
             $vehicleUsage[$month['month']] = $vehicleUsage[$month['month']]->await();
             $usageDataMonth['labels'][] = $month['month'];
             $usageDataMonth['data'][] = $vehicleUsage[$month['month']];
@@ -46,8 +44,7 @@ class StatisticsService
         $vehicles = Vehicle::withCount('reservations')->orderByDesc('reservations_count')->limit($K)->get();
         $topKUsage = [];
 
-        foreach($vehicles as $vehicle)
-        {
+        foreach ($vehicles as $vehicle) {
             $topKUsage['data'][] = $vehicle->reservations_count;
             $topKUsage['labels'][] = $vehicle->vehicle_name;
         }
@@ -57,15 +54,14 @@ class StatisticsService
 
     public function getVehicleUsageByType()
     {
-        $reservations = Reservation::join('vehicles', 'reservations.vehicle_id', '=', 'vehicles.vehicle_id')
-        ->select('vehicles.vehicle_type', DB::raw('count(*) as count'))
-        ->groupBy('vehicles.vehicle_type')
-        ->get();
+        $reservations = Reservation::rightJoin('vehicles', 'reservations.vehicle_id', '=', 'vehicles.vehicle_id')
+            ->select('vehicles.vehicle_type', DB::raw('count(reservations.vehicle_id) as count'))
+            ->groupBy('vehicles.vehicle_type')
+            ->get();
 
         $usageType = [];
 
-        foreach($reservations as $reservation)
-        {
+        foreach ($reservations as $reservation) {
             $usageType['data'][] = $reservation->count;
             $usageType['labels'][] = $reservation->vehicle_type;
         }
@@ -79,8 +75,7 @@ class StatisticsService
 
         $months = [];
 
-        foreach(range(1, $prevMonths) as $idx)
-        {
+        foreach (range(1, $prevMonths) as $idx) {
             $months[] = [
                 'date' => $currDate->format('Y-m'),
                 'month' => $currDate->format('F Y')

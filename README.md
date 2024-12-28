@@ -92,7 +92,10 @@ cp .env.example .env
 5. Generate application key and run the migrations
 ```zsh
 php artisan key:generate
+
 php artisan migrate --seed
+
+php artisan db:seed --class=DummySeeder # for dummy reservation, approval, vehicle service and vehicle fuel consumption data
 ```
 
 6. Build tailwindcss in another terminal
@@ -105,13 +108,14 @@ npm run dev
 php artisan serve
 ```
 
-8. Open the application at [http://localhost:8000](http://localhost:8000)
+8. Open the application at [```localhost:8000```](http://localhost:8000)
 
 9. Use these login credentials to access the application
 
 <table border="1">
   <thead>
     <tr>
+      <th>Fullname</th>
       <th>Email</th>
       <th>Password</th>
       <th>Role</th>
@@ -119,17 +123,32 @@ php artisan serve
   </thead>
   <tbody>
     <tr>
-      <td>admin@gmail.com</td>
-      <td>pass123</td>
+      <td>Evan Lingga</td>
+      <td>evanlingga@gmail.com</td>
+      <td>password</td>
       <td>Admin</td>
     </tr>
     <tr>
-      <td>manager@gmail.com</td>
-      <td>pass123</td>
+      <td>Tade Gina</td>
+      <td>tadegina@gmail.com</td>
+      <td>password</td>
+      <td>Approver</td>
+    </tr>
+    <tr>
+      <td>Farrel Deva</td>
+      <td>farreldeva@gmail.com</td>
+      <td>password</td>
+      <td>Approver</td>
+    </tr>
+    <tr>
+      <td>Hikmam Ali</td>
+      <td>hikmamali@gmail.com</td>
+      <td>password</td>
       <td>Approver</td>
     </tr>
   </tbody>
 </table>
+
 
 
 ### 📦 Deployment
@@ -145,7 +164,7 @@ git clone https://github.com/dvnf10cpp/tambang-media.git
 ```zsh
 cd tambang-media
 ```
-4. Copy the env file 
+4. Copy the env file and set the `DB_HOST` variable to `db` and fill the `DB_PASSWORD` variable
 ```zsh
 cp .env.example .env
 ```
@@ -156,5 +175,12 @@ cp .env.example .env
 docker compose up -d
 ```
 
-6. Open your browser and enter [```localhost```](localhost)
+6. Run the migrations and seeders
+
+```zsh
+docker exec -it tambang-app php artisan migrate --seed
+docker exec -it tambang-app php artisan db:seed --class=DummySeeder # for dummy reservation, approval, vehicle service and vehicle fuel consumption data
+```
+
+. Open your browser and enter [```localhost```](http://localhost)
 

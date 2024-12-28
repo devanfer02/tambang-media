@@ -12,20 +12,19 @@ RUN apt-get update -y && apt-get install -y \
     git \
     curl \
     nodejs \
-    npm
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-RUN docker-php-ext-install pdo mbstring pdo_mysql gd
+    npm && \
+    curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer && \
+    docker-php-ext-install pdo mbstring pdo_mysql gd
 
 WORKDIR /app
 
 COPY . /app
 
-RUN composer install --ignore-platform-reqs
-RUN npm install
-RUN npm run build
-RUN php artisan key:generate
-RUN php artisan migrate --seed
+RUN composer install --ignore-platform-reqs && \
+    npm install && \
+    npm run build && \
+    php artisan key:generate
 
 EXPOSE $PORT
 
-CMD php artisan serve --host=0.0.0.0 --port=8000
+CMD php artisan serve --host=0.0.0.0 --port=$PORT

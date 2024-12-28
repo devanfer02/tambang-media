@@ -9,6 +9,8 @@ class VehicleFuelConsumption extends Model
 {
     use HasFactory;
 
+    protected $primaryKey = 'fuel_id';
+
     protected $fillable = [
         'vehicle_id',
         'fuel_type',

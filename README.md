@@ -61,6 +61,9 @@ Authenticated users (general users) have access to essential features that provi
 - **Monitor Fuel Consumption and Vehicle Services**  
   Users can view fuel consumption logs and service schedules for better insight into vehicle performance.  
 
+- **Monitor Application logs**  
+  Users can view history of application activites and changes made by other users
+
 
 
 

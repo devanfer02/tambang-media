@@ -9,8 +9,9 @@ use Maatwebsite\Excel\Concerns\WithStyles;
 use Maatwebsite\Excel\Events\AfterSheet;
 use PhpOffice\PhpSpreadsheet\Style\Border;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 
-class ReservationExport implements WithHeadings, FromCollection, WithStyles
+class ReservationExport implements WithHeadings, FromCollection, WithStyles, ShouldAutoSize
 {
     /**
     * @return \Illuminate\Support\Collection
@@ -21,6 +22,8 @@ class ReservationExport implements WithHeadings, FromCollection, WithStyles
             'approvals',
             'approvals.approver',
             'vehicle',
+            'driver',
+            'mine',
             'admin'
         ])->get();
 
@@ -28,6 +31,8 @@ class ReservationExport implements WithHeadings, FromCollection, WithStyles
         {
             $reservation['vehicle_id'] = $reservation->vehicle->vehicle_name;
             $reservation['admin_id'] = $reservation->admin->fullname;
+            $reservation['mine_id'] = $reservation->mine->mine_name;
+            $reservation['driver_id'] = $reservation->driver->fullname;
 
             $isRejected = $reservation->approvals->contains('status', 'Rejected');
 
@@ -48,14 +53,18 @@ class ReservationExport implements WithHeadings, FromCollection, WithStyles
             $reservation['status'] = "Pending";
         }
 
+
         return $reservations;
     }
 
-    public function styles(Worksheet $worksheet)
+    public function styles($sheet)
     {
-        return [
-            1 => ['font' => ['bold' => true]]
-        ];
+        // Style the header row (bold and centered)
+        $sheet->getStyle('A1:J1')->getFont()->setBold(true);
+        $sheet->getStyle('A1:J1')->getAlignment()->setHorizontal('center');
+        $sheet->getStyle('A1:J1')->getBorders()->getAllBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+        $sheet->getStyle('A1:J1')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID);
+        $sheet->getStyle('A1:J1')->getFill()->getStartColor()->setRGB('DDDDDD'); // Set header background color
     }
 
     public function headings(): array
@@ -64,9 +73,8 @@ class ReservationExport implements WithHeadings, FromCollection, WithStyles
             'ID Pemesanan',
             'Nama Kendaraan',
             'Nama Pemesan',
+            'Tempat Tambang',
             'Nama Pengemudi',
-            'Tujuan',
-            'Biaya Bensin',
             'Tanggal Mulai',
             'Tanggal Selesai',
             'Tanggal Pengajuan',
@@ -83,11 +91,16 @@ class ReservationExport implements WithHeadings, FromCollection, WithStyles
                 $highestRow = $sheet->getHighestRow();
                 $highestColumn = $sheet->getHighestColumn();
 
+                $event->sheet->freezePane('A2');
+
                 // Apply border to all cells
                 $sheet->getStyle('A1:' . $highestColumn . $highestRow)
                       ->getBorders()
                       ->getAllBorders()
                       ->setBorderStyle(Border::BORDER_THIN);
+
+
+                $event->sheet->getStyle('A1:' . $highestColumn . $highestRow)->getAlignment()->setHorizontal('center');
             },
         ];
     }

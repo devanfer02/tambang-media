@@ -10,7 +10,7 @@
     </div>
 
     <!-- Table Section -->
-    <div class="tw-rounded-lg tw-shadow-lg tw-overflow-hidden tw-bg-gray-800">
+    <div class="tw-rounded-lg tw-shadow-lg tw-overflow-x-scroll tw-bg-gray-800">
       <table class="tw-w-full">
         <!-- Table Header -->
         <thead>

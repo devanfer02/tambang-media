@@ -14,7 +14,7 @@
     </div>
 
     <!-- Table -->
-    <div class="tw-bg-gray-800 tw-rounded-lg tw-shadow-lg tw-overflow-hidden">
+    <div class="tw-bg-gray-800 tw-rounded-lg tw-shadow-lg tw-overflow-x-scroll">
       <table class="tw-w-full">
         <thead>
           <tr class="tw-bg-blue-600">

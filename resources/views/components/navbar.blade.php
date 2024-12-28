@@ -14,7 +14,7 @@
 
     <!-- Navbar Content -->
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0 align-items-center">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0 lg:tw-items-center">
         <!-- Dropdown Menu -->
         <div class="dropdown">
           <button
@@ -26,7 +26,7 @@
           >
             Manajemen Kendaraan
           </button>
-          <ul class="dropdown-menu tw-bg-gray-800 tw-shadow-lg tw-rounded-lg" aria-labelledby="vehicleDropdown">
+          <ul class="tw-ml-10 dropdown-menu tw-bg-gray-800 tw-shadow-lg tw-rounded-lg lg:tw-ml-0" aria-labelledby="vehicleDropdown">
             <li>
               <a class="dropdown-item tw-text-gray-300 hover:tw-bg-gray-700 hover:tw-text-white"
                  href="{{ route('vehicles.pages.index') }}">

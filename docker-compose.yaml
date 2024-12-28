@@ -1,0 +1,42 @@
+services:
+  server:
+    image: nginx:stable-alpine3.19
+    container_name: tambang-proxy
+    ports:
+      - 80:80
+    volumes:
+      - ./deploy/nginx.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - app
+    networks:
+      - tambang-net
+    restart: on-failure
+  app:
+    build:
+      dockerfile: ./deploy/Dockerfile
+      context: .
+    container_name: tambang-app
+    depends_on:
+      - db
+    networks:
+      - tambang-net
+    restart: on-failure
+  db:
+    image: mariadb:latest
+    container_name: tambang-db
+    volumes:
+      - tambang-db-vol:/var/lib/mysql
+    environment:
+      - MYSQL_USER=${DB_USERNAME}
+      - MYSQL_DATABASE=${DB_DATABASE}
+      - MYSQL_PASSWORD=${DB_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
+    networks:
+      - tambang-net
+
+volumes:
+  tambang-db-vol:
+
+networks:
+  tambang-net:
+    driver: bridge
